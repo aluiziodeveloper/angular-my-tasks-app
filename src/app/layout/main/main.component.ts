@@ -17,7 +17,7 @@ const MODULE_IMPORTS = [MatDividerModule];
       <!-- Divisor -->
       <mat-divider class="h-full opacity-50" vertical />
       <!-- Tasks -->
-      <app-task class="w-3/4" />
+      <app-task class="w-3/4 pt-10" />
     </div>
   `,
   styles: ``,

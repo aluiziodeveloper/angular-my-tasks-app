@@ -19,6 +19,7 @@ describe('TaskService unit tests', () => {
   const MOCKED_TASKS = tasks;
   const MOCKED_TASK = task;
   const apiUrl = 'http://localhost:3000';
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -26,16 +27,20 @@ describe('TaskService unit tests', () => {
     taskService = TestBed.inject(TaskService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
+
   afterEach(() => {
     httpTestingController.verify();
   });
+
   it('creates service', () => {
     expect(taskService).toBeTruthy();
   });
+
   it('getSortedTasks', () => {
     const sortedTasks = taskService.getSortedTasks(tasks);
     expect(sortedTasks[0].title).toEqual('Comprar pão');
   });
+
   describe('getTasks', () => {
     it('should return a list of tasks', waitForAsync(() => {
       taskService.getTasks().subscribe(response => {
@@ -69,14 +74,16 @@ describe('TaskService unit tests', () => {
 
   describe('createTask', () => {
     it('should create a new task with waitForAsync', waitForAsync(() => {
-      taskService.createTask(MOCKED_TASK).subscribe(() => {
-        expect(taskService.tasks()[0]).toEqual(MOCKED_TASK);
-        expect(taskService.tasks().length).toEqual(1);
+      let task: Task | undefined;
+      taskService.createTask(MOCKED_TASK).subscribe(response => {
+        task = response;
       });
       const req = httpTestingController.expectOne(`${apiUrl}/tasks`);
       req.flush(MOCKED_TASK);
+      expect(task).toEqual(MOCKED_TASK);
       expect(req.request.method).toEqual('POST');
     }));
+
     it('should create a new task', () => {
       let task: Task | undefined;
       taskService.createTask(MOCKED_TASK).subscribe(response => {
@@ -89,6 +96,7 @@ describe('TaskService unit tests', () => {
       expect(taskService.tasks().length).toEqual(1);
       expect(req.request.method).toEqual('POST');
     });
+
     it('should throw unprocessable entity with invalid body when create a task', waitForAsync(() => {
       let httpErrorResponse: HttpErrorResponse | undefined;
       taskService.createTask(MOCKED_TASK).subscribe({
@@ -125,6 +133,7 @@ describe('TaskService unit tests', () => {
       req.flush(MOCKED_TASK);
       expect(req.request.method).toEqual('PUT');
     }));
+
     it('should throw unprocessable entity with invalid body when update a task', waitForAsync(() => {
       let httpErrorResponse: HttpErrorResponse | undefined;
       taskService.tasks.set([MOCKED_TASK]);
@@ -164,6 +173,7 @@ describe('TaskService unit tests', () => {
       req.flush({ isCompleted: true });
       expect(req.request.method).toEqual('PATCH');
     }));
+
     it('should throw and error when update a tasks isCompleted status', waitForAsync(() => {
       let httpErrorResponse: HttpErrorResponse | undefined;
       const updatedTask = MOCKED_TASK;
@@ -199,6 +209,7 @@ describe('TaskService unit tests', () => {
       req.flush(null);
       expect(req.request.method).toEqual('DELETE');
     }));
+
     it('should throw unprocessable entity with invalid body when delete a task', waitForAsync(() => {
       let httpErrorResponse: HttpErrorResponse | undefined;
       taskService.tasks.set([MOCKED_TASK]);

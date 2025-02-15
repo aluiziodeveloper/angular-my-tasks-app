@@ -1,5 +1,48 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "ffa0",
+      "title": "Treino de musculação",
+      "categoryId": "5",
+      "isCompleted": false
+    },
+    {
+      "id": "8fae",
+      "title": "Fazer compras",
+      "categoryId": "1",
+      "isCompleted": false
+    },
+    {
+      "id": "1761",
+      "title": "Limpar a piscina",
+      "categoryId": "1",
+      "isCompleted": false
+    },
+    {
+      "id": "8fba",
+      "title": "Lavar a louça",
+      "categoryId": "1",
+      "isCompleted": false
+    },
+    {
+      "id": "8fba",
+      "title": "Estudar Angular",
+      "categoryId": "2",
+      "isCompleted": false
+    },
+    {
+      "id": "8fba",
+      "title": "Ler um livro",
+      "categoryId": "4",
+      "isCompleted": false
+    },
+    {
+      "id": "f48e",
+      "title": "Consulta médica",
+      "categoryId": "5",
+      "isCompleted": false
+    }
+  ],
   "categories": [
     {
       "id": "1",
